@@ -41,6 +41,9 @@ sub add_view_engine {
   if (exists $opts{options}) {
     $options = $opts{options};
   }
+  if (exists $opts{path}) {
+    $path = $opts{path};
+  }
 
   if (exists $opts{object}) {
     $engine    = $opts{object};

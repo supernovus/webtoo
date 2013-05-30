@@ -9,8 +9,8 @@ sub BUILD {
   my ($self) = @_;
   $self->controller_path('MyApp::Controllers');
   $self->add_view_engine(
-    type  => 'TT',
-    path  => './t/views'
+    type => 'TT',
+    path => './t/views'
   );
   $self->add_controller(class => 'Unknown',   default => 1);
   $self->add_controller(class => 'Hello',     name    => 'test');

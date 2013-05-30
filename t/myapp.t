@@ -4,7 +4,7 @@ use v5.12;
 use strict;
 use warnings;
 use lib qw(lib t/lib);
-use Test::More tests => 30;
+use Test::More tests => 32;
 use Plack::Test;
 use MyApp;
 use HTTP::Request::Common qw(GET PUT POST DELETE);
@@ -108,8 +108,9 @@ test_psgi $app->psgi, sub {
   is @{$users}, 1, "number of users updated properly";
   is $users->[0], 'tim', "proper user still listed";
 
-#  $res = $cb->(GET "/hello?name=Joe");
-#  is $res->code, 200, "response from a template-powered controller";
+  $res = $cb->(GET "/hello?name=Joe");
+  is $res->code, 200, "response from a template-powered controller";
 #  diag $res->content;
+  is $res->content, "Hello Joe, how are you?", "template output";
 
 };
