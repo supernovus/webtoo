@@ -56,7 +56,7 @@ sub add_view_engine {
       $constructor{path} = $path;
     }
     if ($options) {
-      $constructor{options} = $options;
+      $constructor{opts} = $options;
     }
     $engine = $classname->new(%constructor);
   }
