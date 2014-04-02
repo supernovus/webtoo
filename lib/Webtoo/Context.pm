@@ -27,6 +27,8 @@ has res  => (is => 'lazy', handles => [
 ## You can override that here if you want.
 has json_mime => (is => 'rw', default => sub { 'application/json' } );
 
+has xml_mime => (is => 'rw', default => sub { 'application/xml' } );
+
 ## Build the Request object.
 sub _build_req {
   my ($self) = @_;
@@ -51,6 +53,26 @@ sub send_json {
   my ($self, $data) = @_;
   $self->res->content_type($self->json_mime);
   $self->send(encode_json($data));
+}
+
+## Send an XML response.
+sub send_xml {
+  my ($self, $data) = @_;
+  $self->res->content_type($self->xml_mime);
+  my $rtype = ref $data;
+  if ($rtype eq 'XML::LibXML::Document')
+  {
+    $data = $data->toString();
+  }
+  elsif (!$rtype)
+  {
+    1;
+  }
+  else
+  {
+    croak "unknown data type";
+  }
+  $self->send($data);
 }
 
 ## Get JSON data sent to us.
