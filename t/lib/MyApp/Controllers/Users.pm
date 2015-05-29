@@ -21,7 +21,7 @@ sub ok {
 sub user_list {
   my ($self, $c) = @_;
   $c->status(200);
-  my @users = sort keys $self->users;
+  my @users = sort keys %{$self->users};
   my $response = ok(users => \@users);
   $c->send_json($response);
 }
@@ -63,7 +63,7 @@ sub update_user {
     my $user = $self->users->{$username};
     $c->status(200);
     my $newdata = $c->json_data;
-    foreach my $key (keys $newdata) {
+    foreach my $key (keys %$newdata) {
       $user->{$key} = $newdata->{$key};
     }
     my $response = ok(user => $user);
